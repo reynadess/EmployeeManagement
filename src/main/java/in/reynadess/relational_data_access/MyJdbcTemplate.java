@@ -14,4 +14,12 @@ public class MyJdbcTemplate {
 		super();
 		this.jdbcTemplate = jdbcTemplate;
 	}
+
+	public JdbcTemplate getJdbcTemplate() {
+		return jdbcTemplate;
+	}
+
+	public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
+		this.jdbcTemplate = jdbcTemplate;
+	}
 }

@@ -9,7 +9,7 @@ public class Employee {
 	private String role;
 	private Date dateOfBirth;
 	private double baseSalary;
-	private String employee_status;
+	private String employeeStatus;
 	
 	public Employee() {
 	}
@@ -23,7 +23,7 @@ public class Employee {
 		this.role = role;
 		this.dateOfBirth = dateOfBirth;
 		this.baseSalary = baseSalary;
-		this.employee_status = employee_status;
+		this.employeeStatus = employee_status;
 	}
 
 	public int getId() {
@@ -74,18 +74,18 @@ public class Employee {
 		this.baseSalary = baseSalary;
 	}
 
-	public String getEmployee_status() {
-		return employee_status;
+	public String getEmployeeStatus() {
+		return employeeStatus;
 	}
 
-	public void setEmployee_status(String employee_status) {
-		this.employee_status = employee_status;
+	public void setEmployeeStatus(String employee_status) {
+		this.employeeStatus = employee_status;
 	}
 	
 	@Override
 	public String toString() {
 		return "Employee [id=" + id + ", email=" + email + ", name=" + name + ", role=" + role + ", dateOfBirth="
-				+ dateOfBirth + ", baseSalary=" + baseSalary + ", employee_status=" + employee_status + "]";
+				+ dateOfBirth + ", baseSalary=" + baseSalary + ", employee_status=" + employeeStatus + "]";
 	}
 	
 }
