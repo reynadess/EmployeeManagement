@@ -8,6 +8,7 @@
             http://www.springframework.org/schema/context/spring-context.xsd">
 	
 	<context:property-placeholder location="application.properties"/>
+	<context:annotation-config/>
 	
 	<bean id = "mySqlDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="${spring.datasource.driver-class-name}" />
@@ -20,8 +21,13 @@
 		<property name="dataSource" ref="mySqlDataSource"></property>
 	</bean>
 	
+	<bean class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
+		<constructor-arg>  
+			<ref bean="mySqlDataSource"/>  
+		</constructor-arg>  
+	</bean>
+	
 	<bean id="relationalDataAccess" class="in.reynadess.relational_data_access.RelationalDataAccess">
-		<pr operty name="jdbcTemplate" ref="jdbcTemplate"></property>
 	</bean>
    
  </beans>

@@ -1,5 +1,6 @@
 package in.reynadess;
 
+import java.sql.Date;
 import java.util.List;
 
 import org.springframework.boot.SpringApplication;
@@ -17,8 +18,23 @@ public class EmployeeManagementBackendApplication {
 		SpringApplication.run(EmployeeManagementBackendApplication.class, args);
 		ApplicationContext context = new ClassPathXmlApplicationContext("springConfig.xml");
 		RelationalDataAccess dataAccess = context.getBean("relationalDataAccess", RelationalDataAccess.class);
-		List<Employee> employees = dataAccess.getAllEmployees();
-		System.out.println(employees);
+		
+//		Employee employee = new Employee();
+//		employee.setEmail("meghna@puli.com");
+//		employee.setName("Meghna Puli");
+//		employee.setRole("EMPLOYEE");
+//		employee.setDateOfBirth(Date.valueOf("1998-03-08"));
+//		employee.setBaseSalary(2000000);
+//		employee.setEmployeeStatus("ACTIVE");
+//		
+//		dataAccess.addEmployee(employee, "meghna");
+		
+//		List<Employee> employees = dataAccess.getAllEmployees();
+		
+//		Get EmployeeId
+		Employee employee = dataAccess.getEmployeeById(3);
+		System.out.println(employee);
+		
 	}
 
 }
