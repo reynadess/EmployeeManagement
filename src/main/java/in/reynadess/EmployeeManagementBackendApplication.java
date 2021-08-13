@@ -32,8 +32,8 @@ public class EmployeeManagementBackendApplication {
 //		List<Employee> employees = dataAccess.getAllEmployees();
 		
 //		Get EmployeeId
-		Employee employee = dataAccess.getEmployeeById(3);
-		System.out.println(employee);
+//		Employee employee = dataAccess.getEmployeeById(3);
+//		System.out.println(employee);
 		
 	}
 

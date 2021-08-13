@@ -29,5 +29,4 @@
 	
 	<bean id="relationalDataAccess" class="in.reynadess.relational_data_access.RelationalDataAccess">
 	</bean>
-   
  </beans>
