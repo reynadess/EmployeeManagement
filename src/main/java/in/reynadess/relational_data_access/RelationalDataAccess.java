@@ -53,7 +53,7 @@ public class RelationalDataAccess {
 		return employees;
 	}
 	
-	public int addEmployee(Employee employee, String password) {
+	public Employee addEmployee(Employee employee, String password) {
 		MapSqlParameterSource in = new MapSqlParameterSource();
 		in.addValue("email", employee.getEmail());
 		in.addValue("password", password);
@@ -67,7 +67,7 @@ public class RelationalDataAccess {
 		String insertEmpoloyee = "INSERT INTO employee_management.employees(employee_email, employee_password, employee_name, employee_role, date_of_birth, base_salary, created_by) VALUES (:email, :password, :name, :role, :dob, :baseSalary, :createdBy);";
 		
 		int rowCount = namedParameterJdbctemplate.update(insertEmpoloyee, in);
-		return rowCount;
+		return employee;
 	}
 	
 	public Employee getEmployeeById(int employeeId) {

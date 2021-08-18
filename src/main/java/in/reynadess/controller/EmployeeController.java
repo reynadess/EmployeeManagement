@@ -3,13 +3,17 @@ package in.reynadess.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import in.reynadess.relational_data_access.Employee;
 import in.reynadess.relational_data_access.RelationalDataAccess;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/api/v1")
 public class EmployeeController {
@@ -41,12 +45,11 @@ public class EmployeeController {
 
 	@GetMapping("/employees")
 	public List<Employee> getAllEmployees() {
-		System.out.println("Entered!");
 		return relationalDataAccess.getAllEmployees();
 	}
 	
-	@GetMapping("/hello")
-	public String hello() {
-		return "HelloWorld!";
+	@PostMapping("/employees")
+	public Employee createEmployee(@RequestBody Employee employee) {
+		return relationalDataAccess.addEmployee(employee, employee.getName());
 	}
 }
