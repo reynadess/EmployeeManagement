@@ -16,8 +16,8 @@ public class EmployeeManagementBackendApplication {
 	
 	public static void main(String[] args) {
 		SpringApplication.run(EmployeeManagementBackendApplication.class, args);
-		ApplicationContext context = new ClassPathXmlApplicationContext("springConfig.xml");
-		RelationalDataAccess dataAccess = context.getBean("relationalDataAccess", RelationalDataAccess.class);
+//		ApplicationContext context = new ClassPathXmlApplicationContext("springConfig.xml");
+//		RelationalDataAccess dataAccess = context.getBean("relationalDataAccess", RelationalDataAccess.class);
 		
 //		Employee employee = new Employee();
 //		employee.setEmail("meghna@puli.com");

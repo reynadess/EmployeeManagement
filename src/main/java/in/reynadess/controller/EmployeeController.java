@@ -55,6 +55,7 @@ public class EmployeeController {
 
 	@GetMapping("/employees")
 	public List<Employee> getAllEmployees() {
+		System.out.println("Get All employees");
 		return relationalDataAccess.getAllEmployees();
 	}
 	
@@ -78,6 +79,7 @@ public class EmployeeController {
 		if(employeeDetails == null) {
 			throw new ResourceNotFoundException("Employee id not found:" + id);
 		}
+		System.out.println("We are here!");
 		Employee newEmployeeDetails = relationalDataAccess.updateEmployeeById(id, employee);
 		return ResponseEntity.ok(newEmployeeDetails);
 	}
