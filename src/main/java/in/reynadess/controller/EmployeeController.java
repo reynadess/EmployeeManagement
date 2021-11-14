@@ -55,7 +55,6 @@ public class EmployeeController {
 
 	@GetMapping("/employees")
 	public List<Employee> getAllEmployees() {
-		System.out.println("Get All employees");
 		return relationalDataAccess.getAllEmployees();
 	}
 	
@@ -72,6 +71,16 @@ public class EmployeeController {
 		}
 		return ResponseEntity.ok(employee);
 	}
+	
+	@DeleteMapping("/employees/{id}")
+	public ResponseEntity<String> deleteEmployeeById(@PathVariable Long id) {
+		System.out.println("Delete Request:" + String.valueOf(id));
+		boolean delete = relationalDataAccess.deleteEmployeeById(id);
+		if(!delete) {
+			throw new ResourceNotFoundException("Employee id not found:" + id);
+		}
+		return ResponseEntity.ok("Deleted Employee Id:" + String.valueOf(id));
+	}	
 	
 	@PutMapping("/employees/{id}")
 	public ResponseEntity<Employee> updateEmployeeById(@PathVariable Long id, @RequestBody Employee employee) {

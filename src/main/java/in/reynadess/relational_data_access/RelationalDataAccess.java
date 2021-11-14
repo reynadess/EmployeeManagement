@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreatorFactory;
@@ -86,6 +87,30 @@ public class RelationalDataAccess {
 			return null;
 		}
 		return employee.get(0);
+	}
+	
+	public boolean deleteEmployeeById(Long id) {
+		String query = "DELETE FROM employee_management.employees WHERE employee_id = ?";
+		int rowsAffected;
+		try {
+			rowsAffected = this.jdbcTemplate.update(query, new PreparedStatementSetter() {
+	
+				@Override
+				public void setValues(PreparedStatement ps) throws SQLException {
+					// TODO Auto-generated method stub
+					ps.setLong(1, id);
+				}
+				
+			});
+		}
+		catch(DataAccessException ex) {
+			ex.printStackTrace();
+			return false;
+		}
+		if(rowsAffected >= 1) {
+			return true;
+		}
+		return false;
 	}
 	
 	public Employee updateEmployeeById(Long id, Employee employee) {
