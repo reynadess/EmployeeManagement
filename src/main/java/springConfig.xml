@@ -27,6 +27,6 @@
 		</constructor-arg>  
 	</bean>
 	
-	<bean id="relationalDataAccess" class="in.reynadess.relational_data_access.RelationalDataAccess">
+	<bean id="employeeDaoImpl" class="in.reynadess.relationalDataAccess.EmployeeDaoImpl">
 	</bean>
  </beans>

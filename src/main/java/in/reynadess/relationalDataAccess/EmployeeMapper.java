@@ -1,10 +1,19 @@
-package in.reynadess.relational_data_access;
+package in.reynadess.relationalDataAccess;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import org.springframework.jdbc.core.RowMapper;
 
+import in.reynadess.model.Employee;
+
+
+/**
+ * EmployeeMapper extends RowMapper to map ResultSet
+ * @see RowMapper
+ * @author chait
+ *
+ */
 public class EmployeeMapper implements RowMapper<Employee> {
 
 	@Override

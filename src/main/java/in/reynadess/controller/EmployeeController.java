@@ -20,16 +20,22 @@ import org.springframework.web.bind.annotation.RestController;
 
 import in.reynadess.exception.EmployeeErrorResponse;
 import in.reynadess.exception.ResourceNotFoundException;
-import in.reynadess.relational_data_access.Employee;
-import in.reynadess.relational_data_access.RelationalDataAccess;
+import in.reynadess.model.Employee;
+import in.reynadess.relationalDataAccess.EmployeeDaoImpl;
 
+
+/**
+ * Employee Access Endpoints
+ * @author reynadess
+ *
+ */
 @CrossOrigin
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("employee-management")
 public class EmployeeController {
 	
 	@Autowired
-	private RelationalDataAccess relationalDataAccess;
+	private EmployeeDaoImpl employeeDaoImpl;
 	
 	
 	public EmployeeController() {
@@ -37,35 +43,47 @@ public class EmployeeController {
 	}
 
 
-	public EmployeeController(RelationalDataAccess dataAccess) {
+	public EmployeeController(EmployeeDaoImpl dataAccess) {
 		super();
-		this.relationalDataAccess = dataAccess;
+		this.employeeDaoImpl = dataAccess;
 	}
 
 
-	public RelationalDataAccess getDataAccess() {
-		return relationalDataAccess;
+	public EmployeeDaoImpl getDataAccess() {
+		return employeeDaoImpl;
 	}
 
 
-	public void setDataAccess(RelationalDataAccess dataAccess) {
-		this.relationalDataAccess = dataAccess;
+	public void setDataAccess(EmployeeDaoImpl dataAccess) {
+		this.employeeDaoImpl = dataAccess;
 	}
 
-
+	/**
+	 * Get All Employees REST Endpoint
+	 * @return List of Employees
+	 */
 	@GetMapping("/employees")
 	public List<Employee> getAllEmployees() {
-		return relationalDataAccess.getAllEmployees();
+		return employeeDaoImpl.getAllEmployees();
 	}
 	
+	/**
+	 * Creating Employee REST Endpoint
+	 * @param employee {@link in.reynadess.relationalDataAccess.Employee} Web Request JSON 
+	 */
 	@PostMapping("/employees")
-	public Employee createEmployee(@RequestBody Employee employee) {
-		return relationalDataAccess.addEmployee(employee, employee.getName());
+	public void createEmployee(@RequestBody Employee employee) {
+		employeeDaoImpl.addEmployee(employee, employee.getName());
 	}
 	
+	/**
+	 * Employee Detail by Id REST Endpoint
+	 * @param id
+	 * @return ResponseEntity 
+	 */
 	@GetMapping("/employees/{id}")
 	public ResponseEntity<Employee> getEmployeeById(@PathVariable Long id) {
-		Employee employee = relationalDataAccess.getEmployeeById(id);
+		Employee employee = employeeDaoImpl.getEmployeeById(id);
 		if(employee == null) {
 			throw new ResourceNotFoundException("Employee id not found:" + id);
 		}
@@ -75,7 +93,7 @@ public class EmployeeController {
 	@DeleteMapping("/employees/{id}")
 	public ResponseEntity<String> deleteEmployeeById(@PathVariable Long id) {
 		System.out.println("Delete Request:" + String.valueOf(id));
-		boolean delete = relationalDataAccess.deleteEmployeeById(id);
+		boolean delete = employeeDaoImpl.deleteEmployeeById(id);
 		if(!delete) {
 			throw new ResourceNotFoundException("Employee id not found:" + id);
 		}
@@ -84,12 +102,12 @@ public class EmployeeController {
 	
 	@PutMapping("/employees/{id}")
 	public ResponseEntity<Employee> updateEmployeeById(@PathVariable Long id, @RequestBody Employee employee) {
-		Employee employeeDetails = relationalDataAccess.getEmployeeById(id);
+		Employee employeeDetails = employeeDaoImpl.getEmployeeById(id);
 		if(employeeDetails == null) {
 			throw new ResourceNotFoundException("Employee id not found:" + id);
 		}
 		System.out.println("We are here!");
-		Employee newEmployeeDetails = relationalDataAccess.updateEmployeeById(id, employee);
+		Employee newEmployeeDetails = employeeDaoImpl.updateEmployeeById(id, employee);
 		return ResponseEntity.ok(newEmployeeDetails);
 	}
 	

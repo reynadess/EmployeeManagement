@@ -1,4 +1,4 @@
-package in.reynadess.relational_data_access;
+package in.reynadess.relationalDataAccess;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -7,24 +7,31 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
-import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.PreparedStatementCreatorFactory;
 import org.springframework.jdbc.core.PreparedStatementSetter;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.bind.annotation.PathVariable;
+
+import in.reynadess.model.Employee;
+
+
+/**
+ * Implementation Class to access MySQL Database
+ * @author reynadess
+ * 
+ */
 
 @Repository
-public class RelationalDataAccess {
+public class EmployeeDaoImpl implements EmployeeDao{
 	@Autowired
 	JdbcTemplate jdbcTemplate;
 	@Autowired
 	NamedParameterJdbcTemplate namedParameterJdbctemplate;
+	
+	private final static String getAllEmployees = "SELECT * FROM employee_management.employees";
 
-	public RelationalDataAccess() {
+	public EmployeeDaoImpl() {
 	}
 	
 	
@@ -46,17 +53,16 @@ public class RelationalDataAccess {
 	public void setNamedParameterJdbctemplate(NamedParameterJdbcTemplate namedParameterJdbctemplate) {
 		this.namedParameterJdbctemplate = namedParameterJdbctemplate;
 	}
-
-
+	
+	@Override
 	public List<Employee> getAllEmployees() {
-		List<Employee> employees = new ArrayList<Employee>();
-		String query = "SELECT * FROM employee_management.employees";	
-		employees = jdbcTemplate.query(query, new EmployeeMapper());
+		List<Employee> employees = new ArrayList<Employee>();	
+		employees = jdbcTemplate.query(getAllEmployees, new EmployeeMapper());
 				
 		return employees;
 	}
 	
-	public Employee addEmployee(Employee employee, String password) {
+	public int addEmployee(Employee employee, String password) {
 		MapSqlParameterSource in = new MapSqlParameterSource();
 		in.addValue("email", employee.getEmail());
 		in.addValue("password", password);
@@ -70,7 +76,7 @@ public class RelationalDataAccess {
 		String insertEmpoloyee = "INSERT INTO employee_management.employees(employee_email, employee_password, employee_name, employee_role, date_of_birth, base_salary, created_by) VALUES (:email, :password, :name, :role, :dob, :baseSalary, :createdBy);";
 		
 		int rowCount = namedParameterJdbctemplate.update(insertEmpoloyee, in);
-		return employee;
+		return rowCount;
 	}
 	
 	public Employee getEmployeeById(Long id) {

@@ -1,4 +1,4 @@
-package in.reynadess.relational_data_access;
+package in.reynadess.relationalDataAccess;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;

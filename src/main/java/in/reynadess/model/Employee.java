@@ -1,6 +1,12 @@
-package in.reynadess.relational_data_access;
+package in.reynadess.model;
 
 import java.sql.Date;
+
+/**
+ * Employee POJO Class
+ * @author chait
+ *
+ */
 
 public class Employee {
 	private int id;
