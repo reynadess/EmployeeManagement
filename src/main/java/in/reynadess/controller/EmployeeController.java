@@ -61,10 +61,15 @@ public class EmployeeController {
 	/**
 	 * Get All Employees REST Endpoint
 	 * @return List of Employees
+	 * @throws ResourceNotFoundException
 	 */
 	@GetMapping("/employees")
-	public List<Employee> getAllEmployees() {
-		return employeeDaoImpl.getAllEmployees();
+	public List<Employee> getAllEmployees() throws ResourceNotFoundException{
+		List<Employee> employees =  employeeDaoImpl.getAllEmployees();
+		if(employees == null) {
+			throw new ResourceNotFoundException("Employees List is Empty");
+		}
+		return employees;
 	}
 	
 	/**
